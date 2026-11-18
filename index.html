@@ -47,7 +47,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  margin:0;font-family:var(--font);color:var(--ink);background:var(--forest-900);
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--forest-950);
   line-height:1.68;letter-spacing:-.012em;word-break:keep-all;overflow-wrap:break-word;
   padding-bottom:calc(104px + env(safe-area-inset-bottom));
   -webkit-font-smoothing:antialiased;
@@ -1857,7 +1857,8 @@ ul{margin:0}
     function setSum(key, values){
       var el = sumEls[key];
       if(!el) return;
-      if(values && (values.length ? values.length > 0 : values !== '')){
+      var has = Array.isArray(values) ? values.length > 0 : !!values;
+      if(has){
         el.textContent = Array.isArray(values) ? values.join(' · ') : values;
         el.classList.remove('is-empty');
       } else {
