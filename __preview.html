@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>device preview (temporary)</title>
+<style>
+  body{margin:0;background:#20242a;font-family:-apple-system,sans-serif;color:#fff}
+  .row{display:flex;gap:40px;padding:28px;justify-content:center;align-items:flex-start}
+  .dev{width:390px;flex:none}
+  .dev h2{font-size:13px;font-weight:700;margin:0 0 8px;color:#9fb3ab;letter-spacing:.06em}
+  .dev iframe{width:390px;height:780px;border:0;border-radius:22px;background:#fff;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+  .dev.wide{width:430px}
+  .dev.wide iframe{width:430px}
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="dev"><h2>390 · 히어로</h2><iframe src="index.html#top" title="390 hero"></iframe></div>
+  <div class="dev"><h2>390 · 시공사례</h2><iframe src="index.html#cases" title="390 cases"></iframe></div>
+</div>
+<div class="row">
+  <div class="dev"><h2>390 · 견적 체크</h2><iframe src="index.html#quote" title="390 quote"></iframe></div>
+  <div class="dev wide"><h2>430 · 지역별 시공</h2><iframe src="index.html#regions" title="430 regions"></iframe></div>
+</div>
+</body>
+</html>
