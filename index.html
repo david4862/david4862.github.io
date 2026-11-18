@@ -162,6 +162,18 @@ ul{margin:0}
 }
 .header-tel svg{width:15px;height:15px}
 .header-tel:hover{background:var(--gold);color:#241A05;border-color:var(--gold)}
+@media (max-width:560px){
+  .site-header .wrap{gap:10px;padding:0 14px}
+  .brand{gap:9px}
+  .brand__mark{width:34px;height:34px;border-radius:9px;font-size:13px}
+  .brand__txt strong{font-size:14px}
+  .brand__txt small{display:none}
+  .header-tel{height:38px;padding:0 13px;font-size:12.6px;gap:6px}
+  .header-tel svg{width:14px;height:14px}
+}
+@media (max-width:380px){
+  .header-tel{font-size:11.8px;padding:0 10px;gap:5px}
+}
 @media (max-width:1080px){.nav{display:none}.header-tel{margin-left:auto}}
 
 /* ---------- hero ---------- */
@@ -694,7 +706,7 @@ ul{margin:0}
 /* ---------- floating dock ---------- */
 .dock{
   position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));z-index:70;
-  transform:translateX(-50%);
+  transform:translate(-50%,130%);
   display:flex;align-items:center;gap:4px;padding:7px;
   max-width:calc(100vw - 24px);
   border-radius:999px;
@@ -703,6 +715,10 @@ ul{margin:0}
   border:1px solid rgba(212,175,55,.30);
   box-shadow:0 22px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.07);
 }
+/* 등장: 첫 화면(히어로)에서는 숨기고 스크롤을 시작하면 떠오릅니다 */
+.js .dock{opacity:0;pointer-events:none;transition:opacity .4s var(--ease),transform .55s var(--ease)}
+.js .dock.is-on{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.js .dock{transition:none}}
 .dock__btn{
   display:flex;align-items:center;gap:6px;height:50px;padding:0 15px;border-radius:999px;
   font-size:12.8px;font-weight:700;letter-spacing:-.02em;color:rgba(255,255,255,.78);
@@ -779,12 +795,12 @@ ul{margin:0}
       </span>
     </a>
     <nav class="nav" aria-label="주요 메뉴">
-      <a href="#estimate">견적 체크</a>
-      <a href="#why">강점</a>
       <a href="#cases">시공사례</a>
+      <a href="#quote">10초 견적</a>
       <a href="#regions">지역별 시공</a>
+      <a href="#why">강점</a>
       <a href="#process">시공 과정</a>
-      <a href="#faq">FAQ</a>
+      <a href="#faq">자주 묻는 질문</a>
     </nav>
     <a class="header-tel" href="tel:01086761377">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 1 1 22 16.92z"/></svg>
@@ -794,8 +810,7 @@ ul{margin:0}
 </header>
 
 <main id="main">
-
-  <!-- ================= HERO ================= -->
+<!-- ================= HERO ================= -->
   <section class="hero">
     <div class="hero__bg" aria-hidden="true"></div>
     <span class="hero__mono" aria-hidden="true">N·Y</span>
@@ -863,162 +878,8 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= 10초 간편 견적 체크 ================= -->
-  <section class="section s-sand estimate curve-top" id="estimate">
-    <div class="wrap">
-      <div class="shead">
-        <span class="shead__eye">10초 간편 견적 체크</span>
-        <h2>세 가지만 골라주세요.<br><em>상담 문자가 바로 완성됩니다.</em></h2>
-        <p>시공 항목과 지역, 주방 형태를 누르면 상담 내용이 자동으로 정리됩니다. 가격은 현장 상태에 따라 달라지기 때문에, 선택하신 내용을 문자로 보내주시면 사진 확인 후 정확하게 안내드립니다.</p>
-      </div>
-
-      <div class="estimate__grid">
-        <div class="quiz" id="quiz">
-          <div class="quiz__progress" aria-hidden="true"><i id="quizBar"></i></div>
-
-          <div class="qstep">
-            <div class="qstep__head">
-              <span class="qstep__no">01</span>
-              <div>
-                <h3>어떤 시공이 필요하세요?</h3>
-                <p>여러 개 선택하실 수 있습니다.</p>
-              </div>
-            </div>
-            <div class="chips" role="group" aria-label="시공 희망 항목">
-              <button class="chip" type="button" data-quiz="work" data-value="싱크대 필름" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>싱크대 필름
-              </button>
-              <button class="chip" type="button" data-quiz="work" data-value="문짝 교체" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>문짝 교체
-              </button>
-              <button class="chip" type="button" data-quiz="work" data-value="인조대리석 상판" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>인조대리석 상판
-              </button>
-              <button class="chip" type="button" data-quiz="work" data-value="빌트인 철거·하부장" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>빌트인 철거·하부장
-              </button>
-              <button class="chip" type="button" data-quiz="work" data-value="상하부장 전체" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>상하부장 전체
-              </button>
-            </div>
-          </div>
-
-          <div class="qstep">
-            <div class="qstep__head">
-              <span class="qstep__no">02</span>
-              <div>
-                <h3>어느 지역이신가요?</h3>
-                <p>방문 가능 여부를 함께 확인합니다.</p>
-              </div>
-            </div>
-            <div class="chips" role="group" aria-label="지역 선택">
-              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="일산·고양" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>일산·고양
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="김포" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>김포
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="파주" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>파주
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="서울 서북·강남" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>서울 서북·강남
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="기타 수도권" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>기타 수도권
-              </button>
-            </div>
-          </div>
-
-          <div class="qstep">
-            <div class="qstep__head">
-              <span class="qstep__no">03</span>
-              <div>
-                <h3>주방 형태는 어떻게 되나요?</h3>
-                <p>대략적인 형태만 아셔도 됩니다.</p>
-              </div>
-            </div>
-            <div class="chips" role="group" aria-label="주방 형태 선택">
-              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="일자형" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>일자형
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="ㄱ자형" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ㄱ자형
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="ㄷ자형" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ㄷ자형
-              </button>
-              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="아일랜드 포함" aria-pressed="false">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>아일랜드 포함
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <aside class="qsum" aria-label="선택한 견적 내용">
-          <div class="qsum__head">
-            <b>Your Selection</b>
-            <span>실시간 정리</span>
-          </div>
-          <ul class="qsum__list" id="quizList" aria-live="polite">
-            <li><span class="qsum__k">시공 항목</span><span class="qsum__v is-empty" data-sum="work">선택 안 함</span></li>
-            <li><span class="qsum__k">지역</span><span class="qsum__v is-empty" data-sum="region">선택 안 함</span></li>
-            <li><span class="qsum__k">주방 형태</span><span class="qsum__v is-empty" data-sum="shape">선택 안 함</span></li>
-          </ul>
-          <p class="qsum__hint" id="quizHint">아래에서 항목을 선택하시면 상담 문자가 자동으로 완성됩니다.</p>
-          <div class="qsum__actions">
-            <a class="btn btn--gold btn--block" id="quizSms" href="sms:01086761377?body=">선택 내용으로 문자 상담 보내기</a>
-            <a class="btn btn--glass btn--block" href="tel:01086761377">
-              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 1 1 22 16.92z"/></svg>
-              바로 전화 연결
-            </a>
-            <button class="qsum__copy" id="quizCopy" type="button">선택 내용 복사</button>
-          </div>
-          <p class="qsum__note">가격은 하부장 길이·문짝 수량·상판 상태에 따라 달라집니다. 사진을 보내주시면 항목별로 안내드립니다.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= WHY ================= -->
-  <section class="section s-dark" id="why">
-    <div class="wrap">
-      <div class="shead">
-        <span class="shead__eye">Why N.Y.DU</span>
-        <h2>왜 엔와이두디자인인가요?</h2>
-        <p>주방 리폼에서 가장 중요한 건 &lsquo;어디까지 바꿀지&rsquo;를 정확히 정하는 일입니다. 필요한 부분만, 확실하게 바꿉니다.</p>
-      </div>
-      <div class="why-grid">
-        <article class="why-card why-card--accent reveal">
-          <span class="why-card__no">01</span>
-          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-          <h3>전체 철거 대비 합리적 비용</h3>
-          <p>상판·문짝·필름처럼 필요한 부분만 교체해 철거와 폐기물 비용을 줄입니다. 새로 한 것처럼, 비용은 필요한 만큼만.</p>
-        </article>
-        <article class="why-card reveal" style="--d:70ms">
-          <span class="why-card__no">02</span>
-          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <h3>1일 완성으로 생활 불편 최소화</h3>
-          <p>대부분의 리폼 시공은 하루 안에 마무리됩니다. 짐을 다 빼지 않아도 되고, 다음 날 그대로 주방을 쓰실 수 있습니다.</p>
-        </article>
-        <article class="why-card reveal" style="--d:140ms">
-          <span class="why-card__no">03</span>
-          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-          <h3>대표 직영 책임 시공</h3>
-          <p>상담한 사람이 그대로 시공합니다. 중간에 다른 업체로 넘기지 않고 마감까지 책임집니다.</p>
-        </article>
-        <article class="why-card reveal" style="--d:210ms">
-          <span class="why-card__no">04</span>
-          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-          <h3>사진 한 장으로 빠른 무료 상담</h3>
-          <p>주방 사진 2~3장이면 시공 가능 여부와 진행 방법, 대략적인 비용을 먼저 안내드립니다.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CASES ================= -->
-  <section class="section s-white" id="cases">
+<!-- ================= CASES ================= -->
+  <section class="section s-sand cases curve-top" id="cases">
     <div class="wrap">
       <div class="shead">
         <span class="shead__eye">Before &amp; After</span>
@@ -1197,7 +1058,124 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= 중간 상담 CTA ================= -->
+<!-- ================= 10초 간편 견적 체크 ================= -->
+  <section class="section s-white estimate" id="quote">
+    <div class="wrap">
+      <div class="shead">
+        <span class="shead__eye">10초 간편 견적 체크</span>
+        <h2>세 가지만 골라주세요.<br><em>상담 문자가 바로 완성됩니다.</em></h2>
+        <p>시공 항목과 지역, 주방 형태를 누르면 상담 내용이 자동으로 정리됩니다. 가격은 현장 상태에 따라 달라지기 때문에, 선택하신 내용을 문자로 보내주시면 사진 확인 후 정확하게 안내드립니다.</p>
+      </div>
+
+      <div class="estimate__grid">
+        <div class="quiz" id="quiz">
+          <div class="quiz__progress" aria-hidden="true"><i id="quizBar"></i></div>
+
+          <div class="qstep">
+            <div class="qstep__head">
+              <span class="qstep__no">01</span>
+              <div>
+                <h3>어떤 시공이 필요하세요?</h3>
+                <p>여러 개 선택하실 수 있습니다.</p>
+              </div>
+            </div>
+            <div class="chips" role="group" aria-label="시공 희망 항목">
+              <button class="chip" type="button" data-quiz="work" data-value="싱크대 필름" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>싱크대 필름
+              </button>
+              <button class="chip" type="button" data-quiz="work" data-value="문짝 교체" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>문짝 교체
+              </button>
+              <button class="chip" type="button" data-quiz="work" data-value="인조대리석 상판" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>인조대리석 상판
+              </button>
+              <button class="chip" type="button" data-quiz="work" data-value="빌트인 철거·하부장" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>빌트인 철거·하부장
+              </button>
+              <button class="chip" type="button" data-quiz="work" data-value="상하부장 전체" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>상하부장 전체
+              </button>
+            </div>
+          </div>
+
+          <div class="qstep">
+            <div class="qstep__head">
+              <span class="qstep__no">02</span>
+              <div>
+                <h3>어느 지역이신가요?</h3>
+                <p>방문 가능 여부를 함께 확인합니다.</p>
+              </div>
+            </div>
+            <div class="chips" role="group" aria-label="지역 선택">
+              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="일산·고양" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>일산·고양
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="김포" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>김포
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="파주" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>파주
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="서울 서북·강남" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>서울 서북·강남
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="region" data-value="기타 수도권" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>기타 수도권
+              </button>
+            </div>
+          </div>
+
+          <div class="qstep">
+            <div class="qstep__head">
+              <span class="qstep__no">03</span>
+              <div>
+                <h3>주방 형태는 어떻게 되나요?</h3>
+                <p>대략적인 형태만 아셔도 됩니다.</p>
+              </div>
+            </div>
+            <div class="chips" role="group" aria-label="주방 형태 선택">
+              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="일자형" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>일자형
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="ㄱ자형" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ㄱ자형
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="ㄷ자형" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>ㄷ자형
+              </button>
+              <button class="chip" type="button" data-quiz="single" data-group="shape" data-value="아일랜드 포함" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>아일랜드 포함
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="qsum" aria-label="선택한 견적 내용">
+          <div class="qsum__head">
+            <b>Your Selection</b>
+            <span>실시간 정리</span>
+          </div>
+          <ul class="qsum__list" id="quizList" aria-live="polite">
+            <li><span class="qsum__k">시공 항목</span><span class="qsum__v is-empty" data-sum="work">선택 안 함</span></li>
+            <li><span class="qsum__k">지역</span><span class="qsum__v is-empty" data-sum="region">선택 안 함</span></li>
+            <li><span class="qsum__k">주방 형태</span><span class="qsum__v is-empty" data-sum="shape">선택 안 함</span></li>
+          </ul>
+          <p class="qsum__hint" id="quizHint">아래에서 항목을 선택하시면 상담 문자가 자동으로 완성됩니다.</p>
+          <div class="qsum__actions">
+            <a class="btn btn--gold btn--block" id="quizSms" href="sms:01086761377?body=">선택 내용으로 문자 상담 보내기</a>
+            <a class="btn btn--glass btn--block" href="tel:01086761377">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 1 1 22 16.92z"/></svg>
+              바로 전화 연결
+            </a>
+            <button class="qsum__copy" id="quizCopy" type="button">선택 내용 복사</button>
+          </div>
+          <p class="qsum__note">가격은 하부장 길이·문짝 수량·상판 상태에 따라 달라집니다. 사진을 보내주시면 항목별로 안내드립니다.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+<!-- ================= 중간 상담 CTA ================= -->
   <section class="section s-dark band" id="photo-cta">
     <div class="wrap">
       <div class="band__inner reveal">
@@ -1220,15 +1198,15 @@ ul{margin:0}
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 1 1 22 16.92z"/></svg>
             전화 상담 010-8676-1377
           </a>
-          <a class="btn btn--glass" href="#estimate">10초 견적 체크 하기</a>
+          <a class="btn btn--glass" href="#quote">10초 견적 체크 하기</a>
           <p class="band__note">문자 · 전화 모두 가능합니다</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= REGIONS ================= -->
-  <section class="section s-sand regions curve-top" id="regions">
+<!-- ================= REGIONS ================= -->
+  <section class="section s-sand regions" id="regions">
     <div class="wrap">
       <div class="shead">
         <span class="shead__eye">Local Projects</span>
@@ -1474,7 +1452,44 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= TRUST ================= -->
+<!-- ================= WHY ================= -->
+  <section class="section s-dark" id="why">
+    <div class="wrap">
+      <div class="shead">
+        <span class="shead__eye">Why N.Y.DU</span>
+        <h2>왜 엔와이두디자인인가요?</h2>
+        <p>주방 리폼에서 가장 중요한 건 &lsquo;어디까지 바꿀지&rsquo;를 정확히 정하는 일입니다. 필요한 부분만, 확실하게 바꿉니다.</p>
+      </div>
+      <div class="why-grid">
+        <article class="why-card why-card--accent reveal">
+          <span class="why-card__no">01</span>
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20"/><path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>전체 철거 대비 합리적 비용</h3>
+          <p>상판·문짝·필름처럼 필요한 부분만 교체해 철거와 폐기물 비용을 줄입니다. 새로 한 것처럼, 비용은 필요한 만큼만.</p>
+        </article>
+        <article class="why-card reveal" style="--d:70ms">
+          <span class="why-card__no">02</span>
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>1일 완성으로 생활 불편 최소화</h3>
+          <p>대부분의 리폼 시공은 하루 안에 마무리됩니다. 짐을 다 빼지 않아도 되고, 다음 날 그대로 주방을 쓰실 수 있습니다.</p>
+        </article>
+        <article class="why-card reveal" style="--d:140ms">
+          <span class="why-card__no">03</span>
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h3>대표 직영 책임 시공</h3>
+          <p>상담한 사람이 그대로 시공합니다. 중간에 다른 업체로 넘기지 않고 마감까지 책임집니다.</p>
+        </article>
+        <article class="why-card reveal" style="--d:210ms">
+          <span class="why-card__no">04</span>
+          <div class="why-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+          <h3>사진 한 장으로 빠른 무료 상담</h3>
+          <p>주방 사진 2~3장이면 시공 가능 여부와 진행 방법, 대략적인 비용을 먼저 안내드립니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+<!-- ================= TRUST ================= -->
   <section class="section s-white" id="trust">
     <div class="wrap">
       <div class="shead">
@@ -1507,7 +1522,7 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= PROCESS ================= -->
+<!-- ================= PROCESS ================= -->
   <section class="section s-dark" id="process">
     <div class="wrap">
       <div class="shead">
@@ -1536,7 +1551,7 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= FAQ ================= -->
+<!-- ================= FAQ ================= -->
   <section class="section s-white" id="faq">
     <div class="wrap">
       <div class="shead">
@@ -1572,7 +1587,7 @@ ul{margin:0}
     </div>
   </section>
 
-  <!-- ================= FINAL CTA ================= -->
+<!-- ================= FINAL CTA ================= -->
   <section class="section s-dark final-cta">
     <div class="wrap">
       <div class="final-card reveal">
@@ -1622,9 +1637,10 @@ ul{margin:0}
         </div>
       </div>
       <div class="footer-links">
-        <a href="#estimate">견적 체크</a>
         <a href="#cases">시공사례</a>
+        <a href="#quote">10초 견적</a>
         <a href="#regions">지역별 시공</a>
+        <a href="#why">강점</a>
         <a href="#faq">자주 묻는 질문</a>
         <a href="https://blog.naver.com/nyducompany" target="_blank" rel="noopener">블로그</a>
         <a href="https://m.place.naver.com/place/1571745471/home" target="_blank" rel="noopener">플레이스</a>
@@ -1640,7 +1656,7 @@ ul{margin:0}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 1 1 22 16.92z"/></svg>
     <span>전화 상담</span>
   </a>
-  <a class="dock__btn" href="#estimate">
+  <a class="dock__btn" href="#quote">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-4"/><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/></svg>
     <span>견적 체크</span>
   </a>
@@ -1793,10 +1809,16 @@ ul{margin:0}
      3. header state + sticky reveal
      ========================================================= */
   var header = doc.querySelector('.site-header');
+  var dock = doc.querySelector('.dock');
   function onScroll(){
-    if(!header) return;
-    if(window.scrollY > 10) header.classList.add('is-stuck');
-    else header.classList.remove('is-stuck');
+    if(header){
+      if(window.scrollY > 10) header.classList.add('is-stuck');
+      else header.classList.remove('is-stuck');
+    }
+    if(dock){
+      var on = window.scrollY > Math.min(window.innerHeight * 0.55, 520);
+      dock.classList.toggle('is-on', on);
+    }
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
