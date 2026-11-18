@@ -375,6 +375,8 @@ ul{margin:0}
 .case .ba__knob{width:46px;height:46px}
 .case .ba__range::-webkit-slider-thumb{width:46px;height:46px}
 .case .ba__range::-moz-range-thumb{width:46px;height:46px}
+/* 시공사례 02 — 상·하부장 전체가 잘리지 않는 세로형 사진 */
+.case .ba--tall{aspect-ratio:1000/1307;max-width:min(100%,460px);margin-inline:auto;align-self:center}
 
 /* ---------- ESTIMATE QUIZ ---------- */
 .estimate{padding-top:clamp(54px,6.4vw,86px)}
@@ -482,7 +484,7 @@ ul{margin:0}
 @media (max-width:560px){.why-grid{grid-template-columns:1fr}}
 
 /* ---------- CASES ---------- */
-.cases-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.cases-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px);align-items:start}
 .case{
   display:flex;flex-direction:column;gap:15px;
   background:var(--card);border:1px solid var(--card-line);border-radius:22px;
@@ -971,9 +973,9 @@ ul{margin:0}
             </div>
             <span class="case__badge">실제 시공</span>
           </header>
-          <figure class="ba" data-ba>
-            <img class="ba__img" src="images/case2-door-before.jpg" width="1200" height="900" loading="lazy" alt="싱크대 하부장 도어 교체 전, 어둡고 낡은 갈색 도어">
-            <div class="ba__after"><img class="ba__img" src="images/case2-door-after.jpg" width="1200" height="900" loading="lazy" alt="싱크대 하부장 도어 교체 후, 깔끔한 화이트 도어"></div>
+          <figure class="ba ba--tall" data-ba>
+            <img class="ba__img" src="images/case2-door-before.jpg" width="1000" height="1307" loading="lazy" alt="싱크대 상·하부장 도어 교체 전, 어둡고 낡은 갈색 상·하부장과 서랍 도어">
+            <div class="ba__after"><img class="ba__img" src="images/case2-door-after.jpg" width="1000" height="1255" loading="lazy" alt="싱크대 상·하부장 도어 교체 후, 깔끔한 화이트 상·하부장과 서랍 도어"></div>
             <span class="ba__tag ba__tag--before">시공 전</span>
             <span class="ba__tag ba__tag--after">시공 후</span>
             <div class="ba__line"><span class="ba__knob">
@@ -982,7 +984,7 @@ ul{margin:0}
             <input class="ba__range" type="range" min="0" max="100" value="50" step="0.1" aria-label="싱크대 문짝교체 시공 전후 비교">
             <span class="ba__hint">👆 손가락으로 좌우로 밀어보세요</span>
           </figure>
-          <p class="desc">기존 상판과 상부장은 그대로 두고, 어둡고 낡은 하부장 문짝과 서랍 도어만 깔끔한 화이트 도어로 교체했습니다. 필요한 부분만 바꿔 부담을 줄인 현장입니다.</p>
+          <p class="desc">기존 상판은 그대로 두고, 어둡고 낡은 상·하부장 문짝과 서랍 도어 전체를 깔끔한 화이트 도어로 교체했습니다. 전체 철거 없이 도어만 바꿔 새 주방처럼 완성한 현장입니다.</p>
           <div class="case__specs">
             <span class="spec">하부장 문 교체</span><span class="spec">기존 상판 유지</span><span class="spec">시공 1일</span>
           </div>
