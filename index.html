@@ -289,6 +289,25 @@ ul{margin:0}
   margin-top:14px;font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.02em;
 }
 .hero__caption b{color:rgba(255,255,255,.86);font-weight:600}
+/* hero 시공사례 링크 (캡션 아래) */
+.hero__case-link{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:16px;padding:14px 18px;border-radius:14px;text-decoration:none;
+  background:linear-gradient(135deg,rgba(212,175,55,.22),rgba(212,175,55,.07));
+  border:1px solid rgba(212,175,55,.5);
+  color:var(--gold-pale);font-size:13.6px;font-weight:700;letter-spacing:-.01em;
+  box-shadow:0 10px 26px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);
+}
+.hero__case-link:hover{
+  transform:translateY(-2px);border-color:rgba(232,199,127,.85);color:#fff;
+  background:linear-gradient(135deg,rgba(212,175,55,.32),rgba(212,175,55,.13));
+  box-shadow:0 16px 34px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.hero__case-link:active{transform:translateY(1px)}
+.hero__case-link span{display:flex;align-items:center;gap:9px;min-width:0}
+.hero__case-link svg{width:15px;height:15px;flex:none;color:var(--gold-soft)}
+.hero__case-link .ic-blog{width:16px;height:16px;color:var(--gold)}
 
 /* hero strip */
 .hero__strip{
@@ -326,6 +345,8 @@ ul{margin:0}
   .ba-frame__bar{padding:9px 11px}
   .ba-frame__bar b{font-size:10.5px;letter-spacing:.14em}
   .ba-frame__bar span{font-size:10.5px}
+  .hero__case-link{padding:12px 14px;border-radius:12px;font-size:12.6px;margin-top:12px}
+  .hero__case-link span{gap:7px}
 }
 
 /* ---------- before / after slider ---------- */
@@ -916,6 +937,13 @@ ul{margin:0}
           <b>월넛 상하부장 전체 교체 · 일산</b>
           <span>실제 시공 사진</span>
         </div>
+        <a class="hero__case-link" href="https://blog.naver.com/nyducompany" target="_blank" rel="noopener" aria-label="엔와이두디자인 네이버 블로그 시공사례 보기">
+          <span>
+            <svg class="ic-blog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 0 17.5 16H4z"/><path d="M4 5.5V19a2 2 0 0 0 2 2h14"/><path d="M8 7.5h8M8 11h6"/></svg>
+            엔와이두디자인 블로그 시공사례
+          </span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
       </div>
     </div>
 
