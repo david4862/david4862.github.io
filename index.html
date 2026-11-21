@@ -841,6 +841,44 @@ ul{margin:0}
   ]
 }
 </script>
+
+<!-- 네이버 프리미엄 로그 분석/전환추적 공통 스크립트 (네이버공통키 s_1d44609e2d2e) -->
+<script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+  window.wcs_add = window.wcs_add || {};
+  wcs_add["wa"] = "s_1d44609e2d2e";
+  try {
+    if (window.wcs) {
+      wcs.inflow("nydudesign.com");
+      if (typeof wcs_do === "function") { wcs_do(); }
+    }
+  } catch (e) {}
+</script>
+<!-- 상담 버튼(tel:, sms:, 카카오톡, 네이버톡톡) 클릭 시 신청완료(lead) 전환 전송. 원래 링크 이동은 그대로 진행됩니다. -->
+<script type="text/javascript">
+  (function () {
+    function naverLead() {
+      try {
+        if (window.wcs) { wcs.trans({ type: "lead" }); }
+      } catch (e) {}
+    }
+    function consultLink(node) {
+      while (node && node !== document) {
+        if (node.tagName === "A" && node.getAttribute) { return node; }
+        node = node.parentNode;
+      }
+      return null;
+    }
+    document.addEventListener("click", function (e) {
+      var a = consultLink(e.target);
+      if (!a) { return; }
+      var href = a.getAttribute("href") || "";
+      if (/^(tel:|sms:)/i.test(href) || /pf\.kakao\.com/i.test(href) || /talk\.naver\.com/i.test(href)) {
+        naverLead();
+      }
+    }, true);
+  })();
+</script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
